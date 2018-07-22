@@ -1,0 +1,35 @@
+#include<cstdio>
+#include<vector>
+using namespace std;
+vector<long long> shop;
+int main(){
+	int t;
+	scanf("%d",&t);
+	while(t--){
+		int n;
+		scanf("%d",&n);
+		shop.clear();
+		shop.push_back(1e11);
+		for(int i = 1, j = 0; i <=n; i++){
+			long long a;
+			scanf("%lld",&a);
+			if(i == 1 ){
+				shop.push_back(a);
+				continue;
+			}
+			if(a == shop[shop.size()-1]) continue;
+			else shop.push_back(a);
+		}
+		shop.push_back(0);
+		long long w = 0, times = 0, have = 0;
+		for(int i = 1; i < shop.size(); i++){
+			if(shop[i-1] > shop[i] && shop[i] < shop[i+1]) have = shop[i];
+			if(shop[i-1] < shop[i] && shop[i] > shop[i+1]) {
+				w += shop[i] - have;
+				times++;
+			}
+		}
+		printf("%lld %lld\n",w,times*2);
+	}
+	return 0;
+}
